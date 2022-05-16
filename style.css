@@ -30,13 +30,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 :root {
    font-family: 'Montserrat', sans-serif;
-   --primary-color: #171717;
+   --primary-color: #584236;
 }
 body {
+   width: 100%;
+   height: 100%;
    margin: 0;
+   padding: 0;
+
    background-color: var(--primary-color);
    color: white;
-   padding: 20px;
 }
 .lesson {
    padding: 1rem;
@@ -80,26 +83,112 @@ body {
 }
 
 /* Test ----------------------------------------------------------------------------------- */
+header {
+   width: 100%;
+   height: 190px;
+
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+   background-color: #423228;
+   color: #d2c0b6;
+}
+
+h1 {
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 65px;
+}
+h2 {
+   text-transform: uppercase;
+   text-align: center;
+   font-size: 14px;
+}
+
+.test {
+   max-width: 1300px;
+   margin: 0 auto;
+   padding: 40px 20px 20px 20px;
+}
+
+/* .input-data,
+.second-display {
+   padding: 10px;
+} */
+
+#showButton {
+   display: block;
+   margin: 0 auto;
+}
 
 .empty-result {
-   color: red;
+   color: #a98773;
+   font-size: 18px;
+   display: inline-block;
+   margin: 0px 0px 0px 14px;
 }
 
 .display-result {
+   display: none;
+}
+
+.display-result.export {
+   background-color: #423228;
    display: flex;
    justify-content: space-evenly;
    flex-wrap: wrap;
+   /* -webkit-box-shadow: 2px 2px 6px 1px rgba(71, 20, 100, 0.7);
+   box-shadow: 2px 2px 6px 1px rgba(71, 20, 100, 0.7); */
+}
+
+.form-first-row {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   margin: 0px 0px 40px 0px;
+}
+
+.decorated {
+   -webkit-box-shadow: 2px 2px 6px 1px rgba(71, 20, 100, 0.7);
+   box-shadow: 2px 2px 6px 1px rgba(71, 20, 100, 0.7);
+   width: 20%;
+   margin: 0px 2% 0px 0px;
+}
+
+.decorated:focus,
+.decorated:active {
+   -webkit-box-shadow: 2px 2px 6px 1px rgba(192, 82, 255, 0.7);
+   box-shadow: 2px 2px 6px 1px rgba(192, 82, 255, 0.7);
+   width: 20%;
+   margin: 0px 2% 0px 0px;
+}
+
+.decorated:last-child {
+   margin: 0px;
+}
+
+.input-data {
+   text-align: center;
+}
+
+.form-label {
+   margin: 0px 0px 0px 0px;
 }
 
 .display-result__item {
    width: 25%;
    min-width: 200px;
+   min-height: 200px;
    padding: 10px;
    box-sizing: border-box;
 }
 
 .display-result__item img {
    width: 100%;
+   height: 100%;
    object-fit: cover;
 }
 
@@ -110,3 +199,124 @@ body {
 .load-more.show {
    display: inline-block;
 }
+
+select option {
+   background: rgb(216, 201, 201);
+   color: rgb(66, 50, 50);
+   box-shadow: inset 20px 20px rgb(31, 28, 28);
+}
+
+.btn2,
+.load-more.show {
+   background-color: #4f0335;
+   color: #d2c0b6;
+   padding: 15px 30px;
+   font-size: 18px;
+   border: none;
+   border-radius: 10px;
+}
+
+.btn2:active,
+.btn2:hover,
+.load-more.show:active,
+.load-more.show:hover {
+   background-color: #6a2447;
+   border: none;
+   outline: none;
+}
+
+@media (max-width: 770px) {
+   header {
+      padding: 0px 20px;
+   }
+
+   .display-result__item {
+      width: 50%;
+      min-width: 250px;
+      min-height: 250px;
+      padding: 10px;
+      box-sizing: border-box;
+   }
+
+   #rovers {
+      width: 20%;
+   }
+
+   #cameras {
+      width: 16%;
+   }
+
+   #sol {
+      width: 10%;
+   }
+}
+
+@media (max-width: 760px) {
+   header {
+      height: 150px;
+      padding: 20px 20px 10px 20px;
+   }
+
+   h1 {
+      font-size: 35px;
+   }
+   h2 {
+      font-size: 12px;
+   }
+
+   label,
+   option {
+      font-size: 14px;
+   }
+   .sol-discription {
+      font-size: 14px;
+      margin-bottom: 30px;
+   }
+}
+
+@media (max-width: 545px) {
+   .test {
+      padding: 0px;
+   }
+
+   .input-data {
+      padding: 12px;
+   }
+
+   .form-first-row {
+      display: block;
+      margin: 0;
+   }
+
+   .display-result__item {
+      width: 100%;
+      padding: 12px;
+      box-sizing: border-box;
+   }
+
+   .decorated,
+   #rovers,
+   #cameras,
+   #sol {
+      width: 100%;
+      margin-bottom: 14px;
+   }
+
+   .sol-discription {
+      font-size: 13px;
+      margin-bottom: 25px;
+   }
+
+   .display-result,
+   .load-more {
+      margin-bottom: 0px !important;
+   }
+
+   .btn2 {
+      margin-bottom: 12px !important;
+   }
+
+   .second-display {
+      padding: 12px;
+   }
+} ;

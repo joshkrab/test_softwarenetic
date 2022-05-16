@@ -143,7 +143,6 @@ document
       // console.log(roversValue, cameraValue, solValue);
 
       fetchNasaRover(roversValue, cameraValue, solValue, pageValue);
-      moreButton.classList.add('show');
    });
 
 document.querySelector('#loadMore').addEventListener('click', function (event) {
@@ -168,8 +167,11 @@ const fetchNasaRover = async (rover, camera, sol, page) => {
       ); // Складаємо рядки двох змінних в адресу запиту
       const data = await response.json(); // Отримуємо відповідь в форматі json - пишемо об'єкт у змінну
 
-      //console.log(data);
-      displayExp(data);
+      if (page <= 1) {
+         displayExp(data);
+      } else {
+         displayMore(data);
+      }
    } catch (error) {
       console.log(error);
       emptyResult.innerHTML = `${error}`;
@@ -185,6 +187,23 @@ const displayExp = (data) => {
    //    document.getElementById('explanation').textContent = data.explanation;
 
    if (data.photos.length !== 0) {
+      dispResBody.classList.add('export');
+      data.photos.forEach((item, index, array) => {
+         dispResBody.insertAdjacentHTML(
+            'beforeend',
+            `<div class="display-result__item">
+               <img class="item-image" src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+            </div>`
+         );
+      });
+      moreButton.classList.add('show');
+   } else {
+      emptyResult.innerHTML = 'There are no results for this query';
+   }
+};
+
+const displayMore = (data) => {
+   if (data.photos.length !== 0) {
       data.photos.forEach((item, index, array) => {
          dispResBody.insertAdjacentHTML(
             'beforeend',
@@ -194,6 +213,11 @@ const displayExp = (data) => {
          );
       });
    } else {
-      emptyResult.innerHTML = 'There are no results for this query';
+      emptyResult.innerHTML = 'No more photos';
    }
 };
+
+let solInput = document.querySelector('#sol');
+solInput.addEventListener('focus', function (event) {
+   event.target.value = '';
+});
