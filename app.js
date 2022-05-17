@@ -200,27 +200,38 @@ const displayExp = (data) => {
                   <p>Show more</p>
                </div>
                <div class="item-popup">
-                  <img src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+                  <div class="item-popup-image">
+                     <img src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+                  </div>
                   <p>${data.photos[index].camera.full_name}</p>
+                  <div class="close-pop">
+                     <div></div>
+                     <div></div>
+                  </div>
                </div>
             </div>`
          );
       });
       dispResBody.scrollIntoView(true);
+
       moreButton.classList.add('show');
-      upBtn.classList.add('show');
 
       let itemLogo = document.querySelectorAll('.item-logo');
       let itemPopup = document.querySelectorAll('.item-popup');
+      let closePopup = document.querySelectorAll('.close-pop');
 
       if (itemLogo && itemPopup) {
          itemLogo.forEach((item, index, array) => {
             item.addEventListener('click', function (event) {
                itemPopup[index].classList.add('showpop');
+               document.body.classList.add('scroll-lock');
+            });
+            closePopup[index].addEventListener('click', function (event) {
+               itemPopup[index].classList.remove('showpop');
+               document.body.classList.remove('scroll-lock');
             });
          });
       }
-      itemPopup;
    } else {
       emptyResult.innerHTML = 'There are no results for this query';
    }
@@ -237,13 +248,33 @@ const displayMore = (data) => {
                   <p>Show more</p>
                </div>
                <div class="item-popup">
-                  <img src="${data.photos[index].img_src}" alt="astronomy image by NASA">
-                  <p>${data.photos[index].camera.full_name}</p>
-               </div>
+                     <div class="item-popup-image">
+                        <img src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+                     </div>
+                     <p>${data.photos[index].camera.full_name}</p>
+                     <div class="close-pop">
+                        <div></div>
+                        <div></div>
+                     </div>
+                  </div>
             </div>`
          );
       });
-      upBtn.classList.add('show');
+
+      let itemLogo = document.querySelectorAll('.item-logo');
+      let itemPopup = document.querySelectorAll('.item-popup');
+      let closePopup = document.querySelectorAll('.close-pop');
+
+      if (itemLogo && itemPopup) {
+         itemLogo.forEach((item, index, array) => {
+            item.addEventListener('click', function (event) {
+               itemPopup[index].classList.add('showpop');
+            });
+            closePopup[index].addEventListener('click', function (event) {
+               itemPopup[index].classList.remove('showpop');
+            });
+         });
+      }
    } else {
       emptyResult.innerHTML = 'No more photos';
       body.scrollIntoView(false);
@@ -255,6 +286,19 @@ solInput.addEventListener('focus', function (event) {
    event.target.value = '';
 });
 
-upBtn.addEventListener('click', function () {
-   upBtn.classList.remove('show');
+// dispResBody.addEventListener('focusin', function (event) {
+//    upBtn.classList.add('show');
+// });
+// dispResBody.addEventListener('focusout', function (event) {
+//
+// });
+
+window.addEventListener('scroll', function (event) {
+   let exportCoord =
+      dispResBody.getBoundingClientRect().top + window.pageYOffset;
+   if (scrollY >= exportCoord) {
+      upBtn.classList.add('show');
+   } else {
+      upBtn.classList.remove('show');
+   }
 });
