@@ -129,6 +129,8 @@ let selectRovers = inputsForm.rovers; // Форма
 const dispResBody = document.querySelector('.display-result'); // Блок виводу результату
 const emptyResult = document.querySelector('.empty-result');
 let moreButton = document.querySelector('.load-more');
+let body = document.querySelector('body');
+let upBtn = document.querySelector('.up-btn-body');
 
 document
    .querySelector('#showButton')
@@ -166,7 +168,7 @@ const fetchNasaRover = async (rover, camera, sol, page) => {
          `${RoversUrl}${roverName}${solName}${cameraName}${pageNumber}${apiKey}`
       ); // Складаємо рядки двох змінних в адресу запиту
       const data = await response.json(); // Отримуємо відповідь в форматі json - пишемо об'єкт у змінну
-
+      console.log(data);
       if (page <= 1) {
          displayExp(data);
       } else {
@@ -188,15 +190,37 @@ const displayExp = (data) => {
 
    if (data.photos.length !== 0) {
       dispResBody.classList.add('export');
+
       data.photos.forEach((item, index, array) => {
          dispResBody.insertAdjacentHTML(
             'beforeend',
             `<div class="display-result__item">
                <img class="item-image" src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+               <div class="item-logo">
+                  <p>Show more</p>
+               </div>
+               <div class="item-popup">
+                  <img src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+                  <p>${data.photos[index].camera.full_name}</p>
+               </div>
             </div>`
          );
       });
+      dispResBody.scrollIntoView(true);
       moreButton.classList.add('show');
+      upBtn.classList.add('show');
+
+      let itemLogo = document.querySelectorAll('.item-logo');
+      let itemPopup = document.querySelectorAll('.item-popup');
+
+      if (itemLogo && itemPopup) {
+         itemLogo.forEach((item, index, array) => {
+            item.addEventListener('click', function (event) {
+               itemPopup[index].classList.add('showpop');
+            });
+         });
+      }
+      itemPopup;
    } else {
       emptyResult.innerHTML = 'There are no results for this query';
    }
@@ -209,15 +233,28 @@ const displayMore = (data) => {
             'beforeend',
             `<div class="display-result__item">
                <img class="item-image" src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+               <div class="item-logo">
+                  <p>Show more</p>
+               </div>
+               <div class="item-popup">
+                  <img src="${data.photos[index].img_src}" alt="astronomy image by NASA">
+                  <p>${data.photos[index].camera.full_name}</p>
+               </div>
             </div>`
          );
       });
+      upBtn.classList.add('show');
    } else {
       emptyResult.innerHTML = 'No more photos';
+      body.scrollIntoView(false);
    }
 };
 
 let solInput = document.querySelector('#sol');
 solInput.addEventListener('focus', function (event) {
    event.target.value = '';
+});
+
+upBtn.addEventListener('click', function () {
+   upBtn.classList.remove('show');
 });

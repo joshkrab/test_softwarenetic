@@ -18,7 +18,7 @@
       <link rel="stylesheet" href="./style.css" />
    </head>
    <body>
-      <header>
+      <header id="header">
          <h1>Mars Rover Photos</h1>
          <h2>
             Image data gathered by NASA's Curiosity, Opportunity, and Spirit
@@ -89,7 +89,8 @@
                   class="form-control decorated"
                   name="sol"
                   id="sol"
-                  type="text"
+                  type="number"
+                  inputmode="numeric"
                   value="0"
                   ;
                />
@@ -99,7 +100,7 @@
                Photos are organized by the sol (Martian rotation or day) on
                which they were taken, counting up from the rover's landing date.
                <br />
-               Enter a value - from 0 to max found in endpoint
+               (ranges from 0 to max found in endpoint)
             </p>
 
             <input
@@ -119,8 +120,11 @@
                type="submit"
                value="Load more…"
             />
-
             <div class="empty-result"></div>
+         </div>
+
+         <div class="up-btn-body">
+            <a href="#header">&#8593;</a>
          </div>
       </section>
 
